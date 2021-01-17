@@ -1,0 +1,13 @@
+{
+  "name": "ORDERS",
+  "subjects": [
+    "ORDERS.*"
+  ],
+  "max_msgs": -1,
+  "max_bytes": -1,
+  "storage": "file",
+  "retention": "limits",
+  "max-msg-size": -1,
+  "discard": "old",
+  "replicas": 3
+}

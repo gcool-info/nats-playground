@@ -1,0 +1,43 @@
+version: '3'
+services:
+  n1:
+    container_name: n1
+    image: synadia/jsm:nightly
+    entrypoint: /nats-server
+    command: "--config /config/jetstream.conf --server_name S1"
+    networks:
+      - nats
+    ports:
+      - 4222:4222
+    volumes:
+      - ./config:/config
+      - ./persistent-data/server-n1/:/data/nats-server/jetstream
+
+  n2:
+    container_name: n2
+    image: synadia/jsm:nightly
+    entrypoint: /nats-server
+    command: "--config /config/jetstream.conf --server_name S2"
+    networks:
+      - nats
+    ports:
+      - 4223:4222
+    volumes:
+      - ./config:/config
+      - ./persistent-data/server-n2/:/data/nats-server/jetstream
+
+  n3:
+    container_name: n3
+    image: synadia/jsm:nightly
+    entrypoint: /nats-server
+    command: "--config /config/jetstream.conf --server_name S3"
+    networks:
+      - nats
+    ports:
+      - 4224:4222
+    volumes:
+      - ./config:/config
+      - ./persistent-data/server-n3/:/data/nats-server/jetstream
+
+networks:
+  nats: {}
