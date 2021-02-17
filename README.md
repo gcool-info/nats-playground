@@ -11,7 +11,7 @@ To use this repo, please install:
 
 
 ## Installation
-Authentication for client-server and server-server (for the cluster) use X.509 certificatesn. To install them locally:
+Authentication for client-server and server-server (for the cluster) use X509 certificatesn. To install them locally:
 
 ```shell
 make certificates
@@ -24,44 +24,27 @@ Spin up the cluster with:
 docker-compose up
 ```
 
+Run the client with:
+```shell
+go run client/client.go
+```
+
+You should see the following appear in your terminal:
+```
+connecting securely to cluster
+getting JetStream context
+stream not found
+creating stream "ORDERS" and subject "ORDERS.received"
+publishing an order
+attempting to receive order
+got order: "one big burger"
+```
+
+You can also use `nats-io/nats-tools/nats` to issue manual commands to the cluster. If you do so, you may need to change the client publish permissions in `config/jetstream.conf`.
+
 ## Clean up
-Once you are done testing, remove the CA from your local system trust store(s):
+Once you are done testing, remove the CA from your local system trust store:
 
 ```shell
 make cleanup
-```
-
-===========
-
-
-```shell
-brew tap nats-io/nats-tools
-brew install nats-io/nats-tools/nats
-```
-
-
-To set up the nats client context with the appropriate certificates:
-```shell
-nats context save local --server nats://localhost:4222 --description 'Local client' --tlscert /Users/gkoul/Desktop/blog/NATS/nats-playground/config/client-cert.pem --tlskey /Users/gkoul/Desktop/blog/NATS/nats-playground/config/client-key.pem --tlsca /Users/gkoul/Desktop/blog/NATS/nats-playground/config/rootCA.pem --select
-```
-
-To create an `orders` stream:
-```shell
-nats str add ORDERS --config config/orders-stream.json 
-```
-
-To check status of `orders` stream:
-```shell
-nats str info ORDERS
-```
-
-To publish into `orders.processed` with storage acknowledgment:
-```shell
-nats req ORDERS.processed hello
-```
-
-To create an `orders processed` pull-based consumer and receive the message:
-```shell
-nats con add ORDERS PROCESSED --config config/orders-processed-pull-consumer.json
-nats con next ORDERS PROCESSED
 ```
