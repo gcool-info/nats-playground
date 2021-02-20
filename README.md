@@ -26,7 +26,8 @@ docker-compose up
 
 Run the client with:
 ```shell
-go run client/client.go
+cd client
+go run client.go
 ```
 
 You should see the following appear in your terminal:

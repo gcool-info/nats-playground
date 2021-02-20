@@ -64,7 +64,7 @@ func main() {
 
 }
 
-// connect connects to a JetStream cluster using X509 certificates to authenticate securely.
+// connect to a JetStream cluster using X509 certificates to authenticate securely.
 func connect() (*nats.Conn, error) {
 	clientCert, err := tls.LoadX509KeyPair(certFile, keyFile)
 	if err != nil {
